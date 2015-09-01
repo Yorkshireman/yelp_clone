@@ -23,6 +23,8 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'guard'
+  gem 'guard-rspec'
 
   group :test do
     gem 'rspec-rails'
