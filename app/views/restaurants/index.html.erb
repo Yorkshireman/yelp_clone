@@ -1,5 +1,5 @@
-<% if Restaurant.all.any? %>
-  <% Restaurant.all.each do |restaurant| %>
+<% if @restaurants.any? %>
+  <% @restaurants.each do |restaurant| %>
     <h2><%= restaurant.name %></h2>
   <% end %>
 <% else %>
