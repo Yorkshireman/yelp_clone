@@ -88,7 +88,7 @@ feature 'Restaurant Features' do
     end
 
     context "editing restaurants" do
-      scenario "let a user edit a restaurant" do
+      scenario "can be edited" do
         visit "/restaurants"
         click_link "Edit KFC"
         fill_in "Name", with: "Kentucky Fried Chicken"

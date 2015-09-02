@@ -59,7 +59,7 @@ feature "User Features" do
     end
 
     context "when a restaurant has previously been created by a different user" do
-      before do
+      before :each do
         click_link 'Add a restaurant'
         fill_in 'Name', with: "KFC"
         click_button 'Create Restaurant'
@@ -72,38 +72,54 @@ feature "User Features" do
         @restaurant2 = Restaurant.last
       end
 
-      it "cannot see link to edit a restaurant which they haven't created" do
-        expect(page).not_to have_content("Edit KFC")
+      context "editing:" do
+        it "cannot see a link to edit that restaurant" do
+          expect(page).not_to have_content("Edit KFC")
+        end
+
+        it "but can see a link to edit their own restaurant" do
+          expect(page).to have_content("Edit Maccys")
+        end
+
+        it "cannot edit that other user's restaurant" do
+          visit("/restaurants/#{@restaurant.id}/edit")
+          fill_in "Name", with: "Kentucky Fried Chicken"
+          click_button "Update Restaurant"
+          expect(page).not_to have_content "Kentucky Fried Chicken"
+          expect(page).to have_content "You cannot edit someone else's restaurant"
+        end
+
+        it "but can edit their own restaurant" do
+          visit("/restaurants/#{@restaurant2.id}/edit")
+          fill_in "Name", with: "MacDonalds"
+          click_button "Update Restaurant"
+          expect(page).to have_content "MacDonalds"
+          expect(page).to have_content "Restaurant successfully updated"
+        end
       end
 
-      it "cannot edit a restaurant they haven't created" do
-        visit("/restaurants/#{@restaurant.id}/edit")
-        fill_in "Name", with: "Kentucky Fried Chicken"
-        click_button "Update Restaurant"
-        expect(page).not_to have_content "Kentucky Fried Chicken"
-        expect(page).to have_content "You cannot edit someone else's restaurant"
-      end
+      context "deleting:" do
+        it "cannot see a link to delete the other user's restaurant" do
+          expect(page).not_to have_content "Delete KFC"
+        end
 
-      it "cannot see a link to delete someone else's restaurant" do
-        expect(page).not_to have_content "Delete KFC"
-      end
+        it "but can see a link to delete their own restaurant" do
+          expect(page).to have_content "Delete Maccys"
+        end
 
-      it "can see a link to delete their own restaurant" do
-        expect(page).to have_content "Delete Maccys"
-      end
+        # How to do this when you can't see a link?
+        # it "cannot delete a restaurant that they didn't create" do
+        #   click_link 'Delete KFC'
+        #   expect(current_path).to eq '/restaurants'
+        #   expect(page).not_to have_content "Restaurant successfully deleted"
+        #   expect(page).to have_content "KFC"
+        # end
 
-      # How to do this when you can't see a link?
-      # it "cannot delete a restaurant that they didn't create" do
-      #   click_link 'Delete KFC'
-      #   expect(current_path).to eq '/restaurants'
-      #   expect(page).not_to have_content "Restaurant successfully deleted"
-      #   expect(page).to have_content "KFC"
-      # end
-
-      it "can delete their own restaurant" do
-        click_link 'Delete Maccys'
-        expect(page).to have_content "Restaurant successfully deleted"
-        expect(page).not_to have_content "Maccys"
+        it "can delete their own restaurant" do
+          click_link 'Delete Maccys'
+          expect(page).to have_content "Restaurant successfully deleted"
+          expect(page).not_to have_content "Maccys"
+        end
       end
     end
   end
