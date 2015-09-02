@@ -75,6 +75,7 @@ feature "User can sign in and out" do
       fill_in "Name", with: "Kentucky Fried Chicken"
       click_button "Update Restaurant"
       expect(page).not_to have_content "Kentucky Fried Chicken"
+      expect(page).to have_content "You cannot edit someone else's restaurant"
     end
   end
 end
