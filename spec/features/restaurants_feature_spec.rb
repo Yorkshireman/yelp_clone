@@ -64,15 +64,18 @@ feature 'restaurants' do
   end
 
   context "editing restaurants" do
+
     before do 
-      Restaurant.create name: "KFC"
       visit('/')
       click_link('Sign up')
       fill_in('Email', with: 'test@example.com')
       fill_in('Password', with: 'testtest')
       fill_in('Password confirmation', with: 'testtest')
       click_button('Sign up')
+      @user = User.first
     end
+
+    let!(:kfc) { Restaurant.create(name: "KFC", user_id: @user.id) }
 
     scenario "let a user edit a restaurant" do
       visit "/restaurants"
