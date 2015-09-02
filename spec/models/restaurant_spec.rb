@@ -24,6 +24,7 @@ RSpec.describe Restaurant, type: :model do
     expect { restaurant.destroy }.to change {Review.count}.by(-1)
   end
 
-  xit "cannot be created without a user_id"
-  # expect{ Restaurant.create(name: "testrestaurant")}.not_to change{Restaurant.count}
+  it "cannot be created without a user_id" do
+    expect{ Restaurant.create(name: "testrestaurant")}.not_to change{Restaurant.count}
+  end
 end

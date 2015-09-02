@@ -27,19 +27,14 @@ class RestaurantsController < ApplicationController
   end
 
   def update
-    # The below is bad because logic should be in the model?
-    
-    # if current_user.id === @restaurant.user_id
-    #   @restaurant.update(restaurant_params)
-    #   redirect_to restaurants_path
-    # else
-    #   redirect_to restaurants_path
-    #   flash[:notice] = "You cannot edit someone else's restaurant"
-    # end
-    
     @restaurant = Restaurant.find(params[:id])
-    @restaurant.update(restaurant_params)
-    redirect_to restaurants_path
+    
+    if @restaurant.update_as(current_user, restaurant_params)
+      redirect_to restaurants_path
+    else
+      redirect_to restaurants_path
+      flash[:notice] = "You cannot edit someone else's restaurant"
+    end
   end
 
   def destroy
@@ -49,6 +44,8 @@ class RestaurantsController < ApplicationController
       redirect_to restaurants_path
     end
   end
+
+  private
 
   def restaurant_params
     params.require(:restaurant).permit(:name)

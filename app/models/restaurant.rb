@@ -4,4 +4,13 @@ class Restaurant < ActiveRecord::Base
 
   validates :name, length: {minimum: 3}, uniqueness: true
   validates :user_id, presence: true
+
+  def update_as(user, restaurant_params)
+    unless self.user == user
+      errors.add(:user, "You cannot edit someone else's restaurant")
+      return
+    end
+
+    self.update_attributes(restaurant_params)
+  end
 end
