@@ -27,6 +27,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'shoulda'
   gem 'rspec-collection_matchers'
+  gem 'devise'
 
   group :test do
     gem 'rspec-rails'
