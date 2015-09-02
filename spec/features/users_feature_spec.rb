@@ -1,30 +1,6 @@
 require 'rails_helper'
 
 feature "User Features" do
-
-  def sign_up_user
-    visit('/')
-    click_link('Sign up')
-    fill_in('Email', with: 'test@example.com')
-    fill_in('Password', with: 'testtest')
-    fill_in('Password confirmation', with: 'testtest')
-    click_button('Sign up')
-  end
-
-  def sign_up_user2
-    visit('/')
-    click_link('Sign up')
-    fill_in('Email', with: 'test2@example.com')
-    fill_in('Password', with: 'testtest2')
-    fill_in('Password confirmation', with: 'testtest2')
-    click_button('Sign up')
-  end
-
-  def sign_out
-    visit('/')
-    click_link('Sign out')
-  end
-
   context "when not signed in and on the homepage" do
     it "should see a 'sign in' link and a 'sign up' link" do
       visit('/')
@@ -60,15 +36,11 @@ feature "User Features" do
 
     context "when a restaurant has previously been created by a different user" do
       before :each do
-        click_link 'Add a restaurant'
-        fill_in 'Name', with: "KFC"
-        click_button 'Create Restaurant'
+        create_restaurant("KFC")
         @restaurant = Restaurant.last
         sign_out
         sign_up_user2
-        click_link 'Add a restaurant'
-        fill_in 'Name', with: "Maccys"
-        click_button 'Create Restaurant'
+        create_restaurant("Maccys")
         @restaurant2 = Restaurant.last
       end
 
@@ -122,5 +94,37 @@ feature "User Features" do
         end
       end
     end
+  end
+
+  private
+
+  def sign_up_user
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
+  end
+
+  def sign_up_user2
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test2@example.com')
+    fill_in('Password', with: 'testtest2')
+    fill_in('Password confirmation', with: 'testtest2')
+    click_button('Sign up')
+  end
+
+  def sign_out
+    visit('/')
+    click_link('Sign out')
+  end
+
+  def create_restaurant(name)
+    visit '/restaurants'
+    click_link 'Add a restaurant'
+    fill_in 'Name', with: name
+    click_button 'Create Restaurant'
   end
 end

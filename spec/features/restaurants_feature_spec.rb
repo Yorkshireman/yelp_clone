@@ -1,22 +1,6 @@
 require 'rails_helper'
 
 feature 'Restaurant Features' do
-
-  def sign_up_user
-    visit('/')
-    click_link('Sign up')
-    fill_in('Email', with: 'test@example.com')
-    fill_in('Password', with: 'testtest')
-    fill_in('Password confirmation', with: 'testtest')
-    click_button('Sign up')
-  end
-
-  def create_kfc
-    click_link 'Add a restaurant'
-    fill_in 'Name', with: "KFC"
-    click_button 'Create Restaurant'
-  end
-
   context 'when no restaurants have been added' do
     scenario 'there should be a prompt to add a restaurant on the restaurants page' do
       visit '/restaurants'
@@ -44,10 +28,7 @@ feature 'Restaurant Features' do
     end
 
     scenario "prompts users to fill out a form, then displays the new restaurant" do
-      visit '/restaurants'
-      click_link 'Add a restaurant'
-      fill_in 'Name', with: "KFC"
-      click_button 'Create Restaurant'
+      create_kfc
       expect(page).to have_content 'KFC'
       expect(current_path).to eq '/restaurants'
     end
@@ -73,10 +54,7 @@ feature 'Restaurant Features' do
   context "viewing restaurants" do
     before do
       sign_up_user
-      visit '/restaurants'
-      click_link 'Add a restaurant'
-      fill_in 'Name', with: "KFC"
-      click_button 'Create Restaurant'
+      create_kfc
       @restaurant = Restaurant.last
     end
 
@@ -109,4 +87,21 @@ feature 'Restaurant Features' do
     end
   end
 
+  private
+
+  def sign_up_user
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
+  end
+
+  def create_kfc
+    visit '/restaurants'
+    click_link 'Add a restaurant'
+    fill_in 'Name', with: "KFC"
+    click_button 'Create Restaurant'
+  end
 end
