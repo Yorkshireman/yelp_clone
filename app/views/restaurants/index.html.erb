@@ -5,8 +5,9 @@
     <h4>
       <% if user_signed_in? && current_user == restaurant.user %>
         <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+           <% end %>
         <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-      <% end %>
+
       <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
     </h4>
 

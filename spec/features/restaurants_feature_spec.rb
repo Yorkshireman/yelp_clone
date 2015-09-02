@@ -94,6 +94,7 @@ feature 'Restaurant Features' do
         fill_in "Name", with: "Kentucky Fried Chicken"
         click_button "Update Restaurant"
         expect(page).to have_content "Kentucky Fried Chicken"
+        expect(page).to have_content "Restaurant successfully updated"
         expect(current_path).to eq "/restaurants"
       end
     end
@@ -103,7 +104,7 @@ feature 'Restaurant Features' do
         visit '/restaurants'
         click_link 'Delete KFC'
         expect(page).not_to have_content 'KFC'
-        expect(page).to have_content 'Restaurant deleted successfully'
+        expect(page).to have_content 'Restaurant successfully deleted'
       end
     end
   end

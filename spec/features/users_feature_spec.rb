@@ -66,6 +66,10 @@ feature "User Features" do
         @restaurant = Restaurant.last
         sign_out
         sign_up_user2
+        click_link 'Add a restaurant'
+        fill_in 'Name', with: "Maccys"
+        click_button 'Create Restaurant'
+        @restaurant2 = Restaurant.last
       end
 
       it "cannot see link to edit a restaurant which they haven't created" do
@@ -80,13 +84,20 @@ feature "User Features" do
         expect(page).to have_content "You cannot edit someone else's restaurant"
       end
 
-      it "cannot see a link to delete someone else's restaurant" do
-        expect(page).not_to have_content "Delete KFC"
+      # it "cannot see a link to delete someone else's restaurant" do
+      #   expect(page).not_to have_content "Delete KFC"
+      # end
+
+      it "can see a link to delete their own restaurant" do
+        expect(page).to have_content "Delete Maccys"
       end
 
-      xit "can see a link to delete their own restaurant"
-
-      xit "cannot delete a restaurant that they didn't create"
+      it "cannot delete a restaurant that they didn't create" do
+        click_link 'Delete KFC'
+        expect(current_path).to eq '/restaurants'
+        expect(page).not_to have_content "Restaurant successfully deleted"
+        expect(page).to have_content "KFC"
+      end
 
       xit "can delete their own restaurant"
     end

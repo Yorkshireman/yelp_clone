@@ -13,4 +13,13 @@ class Restaurant < ActiveRecord::Base
 
     self.update_attributes(restaurant_params)
   end
+
+  def delete_as(user)
+    unless self.user == user
+      errors.add(:user, "You cannot delete someone else's restaurant")
+      return
+    end
+
+    self.destroy
+  end
 end
