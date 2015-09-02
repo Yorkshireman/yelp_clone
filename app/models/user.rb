@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :restaurants
   has_many :reviews
+  has_many :reviewed_restaurants, through: :reviews, source: :restaurant
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -22,5 +23,9 @@ class User < ActiveRecord::Base
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def has_reviewed?(restaurant)
+    reviewed_restaurants.include? restaurant
   end
 end
