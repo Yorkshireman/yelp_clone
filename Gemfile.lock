@@ -261,6 +261,7 @@ DEPENDENCIES
   jquery-rails
   omniauth-facebook
   pg
+  pry
   rails (= 4.2.1)
   rspec-collection_matchers
   rspec-rails

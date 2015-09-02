@@ -27,6 +27,7 @@ group :development, :test do
   gem 'spring'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'pry'
 
   group :test do
     gem 'rspec-rails'
