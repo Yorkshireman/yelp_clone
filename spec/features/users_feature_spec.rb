@@ -35,4 +35,20 @@ feature "User can sign in and out" do
       expect(page).not_to have_link('Sign up')
     end
   end
+
+  context "when signed in" do
+      before do
+        anon_restaurant = Restaurant.create(name: "Anon Restaurant")
+        visit('/')
+        click_link('Sign up')
+        fill_in('Email', with: 'test@example.com')
+        fill_in('Password', with: 'testtest')
+        fill_in('Password confirmation', with: 'testtest')
+        click_button('Sign up')  
+      end
+
+    it "cannot edit a restaurant which they haven't created" do
+      expect(page).not_to have_content("Edit Anon Restaurant")
+    end
+  end
 end
