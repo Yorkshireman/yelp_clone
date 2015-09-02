@@ -11,6 +11,20 @@ feature "User can sign in and out" do
     click_button('Sign up')
   end
 
+  def sign_up_user2
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test2@example.com')
+    fill_in('Password', with: 'testtest2')
+    fill_in('Password confirmation', with: 'testtest2')
+    click_button('Sign up')
+  end
+
+  def sign_out
+    visit('/')
+    click_link('Sign out')
+  end
+
   context "user not signed in and on the homepage" do
     it "should see a 'sign in' link and a 'sign up' link" do
       visit('/')
@@ -43,19 +57,24 @@ feature "User can sign in and out" do
 
   context "when signed in" do
       before do
-        @anon_restaurant = Restaurant.create(name: "Anon Restaurant")
-        sign_up_user 
+        sign_up_user
+        click_link 'Add a restaurant'
+        fill_in 'Name', with: "KFC"
+        click_button 'Create Restaurant'
+        @restaurant = Restaurant.last
+        sign_out
+        sign_up_user2
       end
 
     it "cannot see link to edit a restaurant which they haven't created" do
-      expect(page).not_to have_content("Edit Anon Restaurant")
+      expect(page).not_to have_content("Edit KFC")
     end
 
-    it "cannot visit the link the edit a restaurant they haven't created" do
-      visit("/restaurants/#{@anon_restaurant.id}/edit")
+    it "cannot edit a restaurant they haven't created" do
+      visit("/restaurants/#{@restaurant.id}/edit")
       fill_in "Name", with: "Kentucky Fried Chicken"
       click_button "Update Restaurant"
-      expect(current_path).to eq "/restaurants/#{@anon_restaurant.id}/edit"
+      expect(page).not_to have_content "Kentucky Fried Chicken"
     end
   end
 end
