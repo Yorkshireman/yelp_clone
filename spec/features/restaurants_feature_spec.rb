@@ -40,6 +40,11 @@ feature 'restaurants' do
       expect(current_path).to eq '/restaurants'
     end
 
+    scenario "cannot be created without being signed-in" do
+      click_link('Sign out')
+      expect{ Restaurant.create(name: "testrestaurant")}.not_to change{Restaurant.count}
+    end
+
     context 'when trying to create an invalid restaurant' do
       it 'does not let you submit a name that is too short' do
         visit '/restaurants'

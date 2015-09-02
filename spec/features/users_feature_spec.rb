@@ -43,12 +43,19 @@ feature "User can sign in and out" do
 
   context "when signed in" do
       before do
-        anon_restaurant = Restaurant.create(name: "Anon Restaurant")
+        @anon_restaurant = Restaurant.create(name: "Anon Restaurant")
         sign_up_user 
       end
 
     it "cannot see link to edit a restaurant which they haven't created" do
       expect(page).not_to have_content("Edit Anon Restaurant")
+    end
+
+    it "cannot visit the link the edit a restaurant they haven't created" do
+      visit("/restaurants/#{@anon_restaurant.id}/edit")
+      fill_in "Name", with: "Kentucky Fried Chicken"
+      click_button "Update Restaurant"
+      expect(current_path).to eq "/restaurants/#{@anon_restaurant.id}/edit"
     end
   end
 end
