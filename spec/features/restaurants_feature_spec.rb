@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'restaurants' do
+feature 'Restaurant Features' do
 
   def sign_up_user
     visit('/')

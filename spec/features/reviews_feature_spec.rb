@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'reviewing' do
+feature 'Review Features' do
   def sign_up_user
     visit('/')
     click_link('Sign up')

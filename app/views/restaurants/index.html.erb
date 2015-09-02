@@ -3,10 +3,10 @@
   <% @restaurants.each do |restaurant| %>
     <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
     <h4>
-      <% if user_signed_in? && current_user.id === restaurant.user_id %>
+      <% if user_signed_in? && current_user == restaurant.user %>
         <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+        <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
       <% end %>
-      <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
       <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
     </h4>
 
