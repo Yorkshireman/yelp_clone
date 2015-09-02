@@ -84,22 +84,27 @@ feature "User Features" do
         expect(page).to have_content "You cannot edit someone else's restaurant"
       end
 
-      # it "cannot see a link to delete someone else's restaurant" do
-      #   expect(page).not_to have_content "Delete KFC"
-      # end
+      it "cannot see a link to delete someone else's restaurant" do
+        expect(page).not_to have_content "Delete KFC"
+      end
 
       it "can see a link to delete their own restaurant" do
         expect(page).to have_content "Delete Maccys"
       end
 
-      it "cannot delete a restaurant that they didn't create" do
-        click_link 'Delete KFC'
-        expect(current_path).to eq '/restaurants'
-        expect(page).not_to have_content "Restaurant successfully deleted"
-        expect(page).to have_content "KFC"
-      end
+      # How to do this when you can't see a link?
+      # it "cannot delete a restaurant that they didn't create" do
+      #   click_link 'Delete KFC'
+      #   expect(current_path).to eq '/restaurants'
+      #   expect(page).not_to have_content "Restaurant successfully deleted"
+      #   expect(page).to have_content "KFC"
+      # end
 
-      xit "can delete their own restaurant"
+      it "can delete their own restaurant" do
+        click_link 'Delete Maccys'
+        expect(page).to have_content "Restaurant successfully deleted"
+        expect(page).not_to have_content "Maccys"
+      end
     end
   end
 end
