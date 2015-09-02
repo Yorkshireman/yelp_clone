@@ -25,6 +25,8 @@ group :development, :test do
   gem 'spring'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'shoulda'
+  gem 'rspec-collection_matchers'
 
   group :test do
     gem 'rspec-rails'

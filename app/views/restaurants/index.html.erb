@@ -1,7 +1,23 @@
 <% if @restaurants.any? %>
+	<ul>
   <% @restaurants.each do |restaurant| %>
-    <h2><%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %></h2>
+  	<li><%= link_to restaurant.name, restaurant_path(restaurant) %>
+    <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+    <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
+    <%= link_to "Write review for #{restaurant.name}", new_restaurant_review_path(restaurant) %>
+    </li>
+    <% if restaurant.reviews.any? %>
+    <% restaurant.reviews.each do |review| %>
+    	<p><%= review.thoughts %>
+    		<%= review.rating %>*
+    	</p>
+    <% end %>
+    <% else %>
+  <p>No reviews.</p>
+<% end %>
+
   <% end %>
+ 	</ul>
 <% else %>
   <h1>No restaurants yet</h1>
 <% end %>
