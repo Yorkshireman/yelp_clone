@@ -47,7 +47,7 @@ feature "User can sign in and out" do
         click_button('Sign up')  
       end
 
-    it "cannot edit a restaurant which they haven't created" do
+    it "cannot see link to edit a restaurant which they haven't created" do
       expect(page).not_to have_content("Edit Anon Restaurant")
     end
   end
