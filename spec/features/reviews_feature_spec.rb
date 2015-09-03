@@ -20,6 +20,12 @@ feature 'Review Features' do
     expect(page).to have_content('so so')
   end
 
+  scenario 'user cannot see review link if they have already reviewed the restaurant' do
+    leave_review
+    visit '/restaurants'
+    expect(page).not_to have_content 'Review KFC'
+  end
+
   scenario 'displays an average rating for all reviews' do
     leave_2_reviews
     expect(page).to have_content('Average rating: ★★★★☆')
@@ -57,7 +63,7 @@ feature 'Review Features' do
     click_link 'Sign out'
   end
 
-  def leave_review(thoughts, rating)
+  def leave_review(thoughts="blah blah", rating='4')
     visit '/restaurants'
     click_link 'Review KFC'
     fill_in 'Thoughts', with: thoughts
