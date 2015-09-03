@@ -18,9 +18,12 @@ RSpec.describe Restaurant, type: :model do
   end
 
   it "when a restaurant is deleted, its reviews are deleted too" do
-    user.restaurants.create(name: "restaurant")
-    restaurant = Restaurant.last
-    restaurant.reviews.create(thoughts: "blah blah", rating: 4)
+    restaurant = user.restaurants.create(name: "restaurant")
+    review = restaurant.reviews.create(thoughts: "blah blah", rating: 4)
+    puts "REVIEW IS GETTING SAVED EVEN THOUGH IT HAS NO USER ID AND I HAVE A USER_ID VALIDATION IN MY REVIEW MODEL?"
+    puts "TEST PASSES IF I REMOVE USER_ID PRESENCE VALIDATION. WHY??"
+    puts review.inspect
+    puts restaurant.reviews.last.inspect
     expect { restaurant.destroy }.to change {Review.count}.by(-1)
   end
 

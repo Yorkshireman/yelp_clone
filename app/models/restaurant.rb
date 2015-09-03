@@ -22,4 +22,8 @@ class Restaurant < ActiveRecord::Base
 
     self.destroy
   end
+
+  def build_review(params, user)
+    self.reviews.new(thoughts: params["thoughts"], rating: params["rating"], user_id: user.id)
+  end
 end
