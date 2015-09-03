@@ -9,6 +9,9 @@ RSpec.describe Review, type: :model do
     expect(review).to have(1).error_on(:rating)
   end
 
-  xit "cannot be created without a user_id"
-    # expect{ Review.create(thoughts: "testthoughts")}.not_to change{Review.count}
+  it "cannot be created without a user" do
+    restaurant = Restaurant.create(name: "testrestaurant")
+    review = restaurant.reviews.new({"thoughts" => "blah blah", "rating" => 4})
+    expect(review).to have(2).error_on(:user)
+  end
 end

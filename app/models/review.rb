@@ -4,4 +4,5 @@ class Review < ActiveRecord::Base
 
   validates :rating, inclusion: { in: [1, 2, 3, 4, 5] }
   validates :user, uniqueness: { scope: :restaurant, message: "has reviewed this restaurant already" }, presence: true
+  validates :user, presence: true
 end
