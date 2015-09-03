@@ -1,32 +1,34 @@
-<% if @restaurants.any? %>
-  
-  <% @restaurants.each do |restaurant| %>
-    <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
-    <h4>
-      <% if user_signed_in? && current_user == restaurant.user %>
-        <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
-        <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-      <% end %>
-      <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
-    </h4>
+<section>
+  <% if @restaurants.any? %>
+    
+    <% @restaurants.each do |restaurant| %>
+      <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
+      <h4>
+        <% if user_signed_in? && current_user == restaurant.user %>
+          <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+          <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
+        <% end %>
+        <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
+      </h4>
 
-    <h4>Reviews for <%= restaurant.name %>:</h4>
-    <% if restaurant.reviews.any? %>  
-      <% restaurant.reviews.each do |review| %>
-        <p><%= review.thoughts %></p>
-        <p><%= review.rating %>/5</p>
+      <h4>Reviews for <%= restaurant.name %>:</h4>
+      <% if restaurant.reviews.any? %>  
+        <% restaurant.reviews.each do |review| %>
+          <p><%= review.thoughts %></p>
+          <p><%= review.rating %>/5</p>
+        <% end %>
+
+        <h3>Average rating: <%= star_rating(restaurant.average_rating) %></h3>
+        
+      <% else %>
+        <p>No reviews yet</p>
       <% end %>
 
-      <h3>Average rating: <%= restaurant.average_rating.to_i %>/5</h3>
-      
-    <% else %>
-      <p>No reviews yet</p>
     <% end %>
 
+  <% else %>
+    <h1>No restaurants yet</h1>
   <% end %>
-
-<% else %>
-  <h1>No restaurants yet</h1>
-<% end %>
+</section>
 
 <%= link_to 'Add a restaurant', new_restaurant_path %>
