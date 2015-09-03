@@ -21,14 +21,18 @@ feature 'Review Features' do
   end
 
   scenario 'displays an average rating for all reviews' do
-    leave_review('So so', '3')
-    sign_out
-    sign_up_user2
-    leave_review('Great', '5')
-    expect(page).to have_content('Average rating: 4')
+    leave_2_reviews
+    expect(page).to have_content('Average rating: ★★★★☆')
   end
 
   private
+
+  def leave_2_reviews
+    leave_review("so so", '3')
+    sign_out
+    sign_up_user2
+    leave_review("Great!", '5')
+  end
 
   def sign_up_user
     visit('/')
