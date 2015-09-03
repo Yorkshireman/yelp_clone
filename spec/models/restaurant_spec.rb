@@ -54,4 +54,8 @@ RSpec.describe Restaurant, type: :model do
       end
     end
   end
+
+  describe '#delete_as' do
+    xit "user cannot delete someone else's restaurant"
+  end
 end
