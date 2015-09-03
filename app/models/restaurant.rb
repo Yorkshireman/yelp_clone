@@ -26,4 +26,9 @@ class Restaurant < ActiveRecord::Base
   def build_review(params, user)
     self.reviews.new(thoughts: params["thoughts"], rating: params["rating"], user_id: user.id)
   end
+
+  def average_rating
+    return 'N/A' if reviews.none?
+    4
+  end
 end
