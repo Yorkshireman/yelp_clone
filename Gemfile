@@ -28,6 +28,7 @@ group :development, :test do
   gem 'guard'
   gem 'guard-rspec'
   gem 'pry'
+  gem 'launchy'
 
   group :test do
     gem 'rspec-rails'

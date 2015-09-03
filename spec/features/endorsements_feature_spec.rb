@@ -10,6 +10,8 @@ feature 'endorsing reviews' do
   end
 
   scenario 'a user can endorse a review, which increments the review endorsement count', js: true do
+    sign_out
+    sign_up_user2
     visit '/restaurants'
     click_link 'Endorse'
     expect(page).to have_content('1 endorsement')

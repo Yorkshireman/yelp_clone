@@ -12,14 +12,19 @@
       </h4>
 
       <h4>Reviews for <%= restaurant.name %>:</h4>
-      <% if restaurant.reviews.any? %>  
-        <% restaurant.reviews.each do |review| %>
-          <p><%= review.thoughts %></p>
-          <p><%= review.rating %>/5</p>
-          <% if review.endorsements.any? %>
-            <p><%= pluralize review.endorsements.count, 'endorsement' %></p>
+      <% if restaurant.reviews.any? %> 
+
+        <ul>
+          <% restaurant.reviews.each do |review| %>
+            <li>
+              <%= review.thoughts %> <%= review.rating %>
+              <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
+              <% if review.endorsements.any? %>
+                <span class='endorsements_count'> <%= review.endorsements.count %> </span> <%= 'endorsement'.pluralize(review.endorsements.count) %>
+              <% end %>
+            </li>
           <% end %>
-        <% end %>
+        </ul>
 
         <h3>Average rating: <%= star_rating(restaurant.average_rating) %></h3>
         
