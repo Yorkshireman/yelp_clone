@@ -12,6 +12,6 @@ RSpec.describe Review, type: :model do
   it "cannot be created without a user" do
     restaurant = Restaurant.create(name: "testrestaurant")
     review = restaurant.reviews.new({"thoughts" => "blah blah", "rating" => 4})
-    expect(review).to have(2).error_on(:user)
+    expect(review).to have(1).error_on(:user)
   end
 end
