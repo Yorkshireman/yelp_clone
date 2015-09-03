@@ -9,9 +9,9 @@ feature 'endorsing reviews' do
     leave_review('It was an abomination', '3')
   end
 
-  scenario 'a user can endorse a review, which updates the review endorsement count' do
+  scenario 'a user can endorse a review, which increments the review endorsement count', js: true do
     visit '/restaurants'
-    click_link 'Endorse Review'
+    click_link 'Endorse'
     expect(page).to have_content('1 endorsement')
   end
 
