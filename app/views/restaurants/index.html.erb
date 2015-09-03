@@ -16,6 +16,9 @@
         <p><%= review.thoughts %></p>
         <p><%= review.rating %>/5</p>
       <% end %>
+
+      <h3>Average rating: <%= restaurant.average_rating.to_i %>/5</h3>
+      
     <% else %>
       <p>No reviews yet</p>
     <% end %>

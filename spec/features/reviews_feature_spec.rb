@@ -22,6 +22,8 @@ feature 'Review Features' do
 
   scenario 'displays an average rating for all reviews' do
     leave_review('So so', '3')
+    sign_out
+    sign_up_user2
     leave_review('Great', '5')
     expect(page).to have_content('Average rating: 4')
   end
@@ -35,6 +37,20 @@ feature 'Review Features' do
     fill_in('Password', with: 'testtest')
     fill_in('Password confirmation', with: 'testtest')
     click_button('Sign up')
+  end
+
+  def sign_up_user2
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test2@example.com')
+    fill_in('Password', with: 'testtest2')
+    fill_in('Password confirmation', with: 'testtest2')
+    click_button('Sign up')
+  end
+
+  def sign_out
+    visit('/')
+    click_link 'Sign out'
   end
 
   def leave_review(thoughts, rating)
