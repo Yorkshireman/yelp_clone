@@ -38,6 +38,7 @@ feature 'Restaurant Features' do
       fill_in 'Name', with: "Test Restaurant"
       attach_file "Image", 'spec/smiley.png'
       click_button 'Create Restaurant'
+      expect(page.status_code).to be 200
     end
 
     scenario "prompts users to fill out a form, then displays the new restaurant" do
