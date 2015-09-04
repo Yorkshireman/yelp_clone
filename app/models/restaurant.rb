@@ -5,6 +5,9 @@ class Restaurant < ActiveRecord::Base
   validates :name, length: {minimum: 3}, uniqueness: true
   validates :user_id, presence: true
 
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
   def update_as(user, restaurant_params)
     unless self.user == user
       errors.add(:user, "You cannot edit someone else's restaurant")

@@ -2,6 +2,7 @@
   <% if @restaurants.any? %>
     
     <% @restaurants.each do |restaurant| %>
+      <%= image_tag restaurant.image.url(:thumb) %>
       <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
       <h4>
         <% if current_user == restaurant.user %>

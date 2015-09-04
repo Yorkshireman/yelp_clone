@@ -8,7 +8,7 @@ feature 'Restaurant Features' do
       expect(page).to have_link 'Add a restaurant'
     end
   end
-  
+
   context 'restaurants have been added' do
   	before do
       sign_up_user
@@ -25,6 +25,12 @@ feature 'Restaurant Features' do
   context "creating restaurants" do
     before :each do
      sign_up_user
+    end
+
+    it "user can see an image upload label and button on the form" do
+      visit 'restaurants/new'
+      expect(page).to have_content 'Image'
+      expect(page).to have_css("input#restaurant_image")
     end
 
     scenario "prompts users to fill out a form, then displays the new restaurant" do
