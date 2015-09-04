@@ -33,6 +33,13 @@ feature 'Restaurant Features' do
       expect(page).to have_css("input#restaurant_image")
     end
 
+    it "can upload an image for the restaurant" do
+      visit 'restaurants/new'
+      fill_in 'Name', with: "Test Restaurant"
+      attach_file "Image", 'spec/smiley.png'
+      click_button 'Create Restaurant'
+    end
+
     scenario "prompts users to fill out a form, then displays the new restaurant" do
       create_kfc
       expect(page).to have_content 'KFC'
