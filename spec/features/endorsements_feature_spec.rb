@@ -14,6 +14,7 @@ feature 'endorsing reviews' do
     sign_up_user2
     visit '/restaurants'
     click_link 'Endorse'
+    # Fails because, at the moment, when a review has no endorsements and you click 'Endorse', only the number appears, not the word (until you do a page refresh). Pluralization doesn't happen til page refresh either. One way around this could be to render a partial for the whole line i.e. "2 endoresements"
     expect(page).to have_content('1 endorsement')
   end
 
@@ -28,6 +29,7 @@ feature 'endorsing reviews' do
 
     scenario 'endorsement is displayed on restaurants page' do
       visit '/restaurants'
+      # This probably only works because you get a full page refresh (see above)
       expect(page).to have_content "1 endorsement"
     end
   end

@@ -12,6 +12,7 @@ class ReviewsController < ApplicationController
       redirect_to restaurants_path
       flash[:notice] = "Review successfully created"
     else
+      # Use locales instead for custom error message
       if @review.errors[:user]
         redirect_to restaurants_path, alert: 'You have already reviewed this restaurant'
       else

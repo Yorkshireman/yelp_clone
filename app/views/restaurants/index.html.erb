@@ -4,12 +4,12 @@
     <% @restaurants.each do |restaurant| %>
       <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
       <h4>
-        <% if user_signed_in? && current_user == restaurant.user %>
+        <% if current_user == restaurant.user %>
           <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
           <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
         <% end %>
 
-        <% unless (user_signed_in? && already_reviewed_by_user?(restaurant)) %>
+        <% unless already_reviewed_by_user?(restaurant) %>
           <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
         <% end %>
       </h4>
@@ -22,8 +22,13 @@
             <li>
               <%= review.thoughts %> <%= review.rating %>
               <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
+              <span class='endorsements_count'> 
+                <% if review.endorsements.any? %>
+                 <%= review.endorsements.count %>
+                <% end %>
+              </span> 
               <% if review.endorsements.any? %>
-                <span class='endorsements_count'> <%= review.endorsements.count %> </span> <%= 'endorsement'.pluralize(review.endorsements.count) %>
+                <%= 'endorsement'.pluralize(review.endorsements.count) %>
               <% end %>
             </li>
           <% end %>

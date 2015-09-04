@@ -1,5 +1,4 @@
-$(document).ready(function() {
-
+$(document).on("page:load ready", function() {
   $('.endorsements-link').on('click', function(event) {
     event.preventDefault();
 
@@ -9,5 +8,4 @@ $(document).ready(function() {
       endorsementCount.text(response.new_endorsement_count);
     })
   })
-
 })

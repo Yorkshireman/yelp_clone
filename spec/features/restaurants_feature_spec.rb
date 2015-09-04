@@ -8,7 +8,7 @@ feature 'Restaurant Features' do
       expect(page).to have_link 'Add a restaurant'
     end
   end
-
+  
   context 'restaurants have been added' do
   	before do
       sign_up_user
