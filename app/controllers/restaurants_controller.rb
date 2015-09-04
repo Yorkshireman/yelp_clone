@@ -27,17 +27,12 @@ class RestaurantsController < ApplicationController
   end
 
   def update
-    p 'updating restaurant, params:'
-    p params
     @restaurant = Restaurant.find(params[:id])
-
-    p "restaurant found, it's #{@restaurant}"
+    
     if @restaurant.update_as(current_user, restaurant_params)
-      p "Restaurant was updated, now redirecting..."
       redirect_to restaurants_path
       flash[:notice] = "Restaurant successfully updated"
     else
-      p "Restaurant was not updated, heading back."
       redirect_to restaurants_path
       flash[:notice] = "You cannot edit someone else's restaurant"
     end
