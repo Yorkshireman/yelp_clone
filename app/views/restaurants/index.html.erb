@@ -5,10 +5,10 @@
     <% @restaurants.each do |restaurant| %>
       <section class='panel panel-default'>
         <div class='row panel-body'>
-          <div class='col-xs-2'>
-            <%= image_tag restaurant.image.url(:thumb) %>
+          <div class='col-sm-4'>
+            <%= image_tag restaurant.image.url(:medium) %>
           </div>
-          <div class='col-xs-10'>
+          <div class='col-sm-6'>
             <%= link_to restaurant.name, restaurant_path(restaurant), class: 'restaurant-title' %><br>
             <% if restaurant.reviews.any? %>
               <p class='stars'><%= star_rating(restaurant.average_rating) %></p>
@@ -18,16 +18,18 @@
 
             <% if restaurant.reviews.any? %> 
               <% restaurant.reviews.each do |review| %>    
-                <%= review.thoughts %> <%= review.rating %>
-                <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
-                <span class='endorsements_count'> 
+                <%= review.thoughts %><br>
+                <section class='endorsements-wrapper'>
+                  <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link btn btn-default btn-xs' %>
+                  <span class='endorsements_count'> 
+                    <% if review.endorsements.any? %>
+                     <%= review.endorsements.count %>
+                    <% end %>
+                  </span> 
                   <% if review.endorsements.any? %>
-                   <%= review.endorsements.count %>
+                    <%= 'endorsement'.pluralize(review.endorsements.count) %>
                   <% end %>
-                </span> 
-                <% if review.endorsements.any? %>
-                  <%= 'endorsement'.pluralize(review.endorsements.count) %>
-                <% end %>
+                </section>
               <% end %>
             <% else %>
               <p class='small'>(No reviews yet)</p>

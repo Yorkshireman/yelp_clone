@@ -13,7 +13,7 @@ main {
   margin-bottom: 10em;
 }
 
-.col-xs-10 {
+.col-sm-6 {
   .restaurant-title {
     font-weight: bold;
   }
@@ -28,4 +28,11 @@ main {
 
 .links {
   margin-top: 1em;
+}
+
+.endorsements-wrapper {
+  margin-top: 0.5em;
+  .btn {
+    margin-right: 0.5%;
+  }
 }
