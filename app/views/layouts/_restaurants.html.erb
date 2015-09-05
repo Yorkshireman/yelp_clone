@@ -1,0 +1,46 @@
+<% @restaurants.each do |restaurant| %>
+  <section class='panel panel-default'>
+    <div class='row panel-body'>
+      <div class='col-sm-4'>
+        <%= image_tag restaurant.image.url(:medium) %>
+      </div>
+      <div class='col-sm-6'>
+        <%= link_to restaurant.name, restaurant_path(restaurant), class: 'restaurant-title' %><br>
+        <% if restaurant.reviews.any? %>
+          <p class='stars'><%= star_rating(restaurant.average_rating) %></p>
+        <% else %>
+          <p class='small'>(no ratings yet)</p>
+        <% end %>
+
+        <% if restaurant.reviews.any? %> 
+          <% restaurant.reviews.each do |review| %>    
+            <%= review.thoughts %><br>
+            <section class='endorsements-wrapper'>
+              <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link btn btn-default btn-xs' %>
+              <span class='endorsements_count'> 
+                <% if review.endorsements.any? %>
+                 <%= review.endorsements.count %>
+                <% end %>
+              </span> 
+              <% if review.endorsements.any? %>
+                <%= 'endorsement'.pluralize(review.endorsements.count) %>
+              <% end %>
+            </section>
+          <% end %>
+        <% else %>
+          <p class='small'>(No reviews yet)</p>
+        <% end %>
+        <section class='links'>
+          <% unless already_reviewed_by_user?(restaurant) %>
+            <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant), class: 'btn btn-primary btn-sm' %><br>
+          <% end %>
+
+          <% if current_user == restaurant.user %>
+            <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+            <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
+          <% end %>
+        </section>
+      </div>
+    </section>
+  </div>
+<% end %>

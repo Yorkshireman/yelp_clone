@@ -1,9 +1,27 @@
 .navbar {
   margin-bottom: 0;
+  border-radius: 0;
 }
 
 .navbar .container-fluid {
   max-width: 960px;
+}
+
+.navbar-default .navbar-brand {
+  color: white;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.navbar-right li {
+  a {
+    font-weight: bold;
+  } 
+  .btn {
+    padding: 10px 15px;
+    margin-top: 17px;
+    font-size: 1.1em;
+  }
 }
 
 main {
