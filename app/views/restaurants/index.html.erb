@@ -1,9 +1,21 @@
-<section>
+<section class='restaurants'>
+  <h4>Restaurants</h4>
   <% if @restaurants.any? %>
     
     <% @restaurants.each do |restaurant| %>
-      <%= image_tag restaurant.image.url(:thumb) %>
-      <h3><%= link_to restaurant.name, restaurant_path(restaurant) %></h3>
+      <div class='row'>
+        <div class='col-xs-2'>
+          <%= image_tag restaurant.image.url(:thumb) %>
+        </div>
+        <div class='col-xs-10'>
+          <%= link_to restaurant.name, restaurant_path(restaurant) %><br>
+          <% if restaurant.reviews.any? %>
+            <p class='stars'><%= star_rating(restaurant.average_rating) %></p>
+          <% else %>
+            <p class='small'>(no ratings yet)</p>
+          <% end %>
+        </div>
+      </div>
       <h4>
         <% if current_user == restaurant.user %>
           <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
@@ -34,8 +46,6 @@
             </li>
           <% end %>
         </ul>
-
-        <h3>Average rating: <%= star_rating(restaurant.average_rating) %></h3>
         
       <% else %>
         <p>No reviews yet</p>

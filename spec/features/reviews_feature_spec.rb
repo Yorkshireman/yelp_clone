@@ -28,7 +28,7 @@ feature 'Review Features' do
 
   scenario 'displays an average rating for all reviews' do
     leave_2_reviews
-    expect(page).to have_content('Average rating: ★★★★☆')
+    expect(page).to have_content('★★★★☆')
   end
 
   private
