@@ -34,37 +34,37 @@ feature 'endorsing reviews' do
     end
   end
 
-private
+  private
 
-def sign_up_user
-  visit('/')
-  click_link('Sign up')
-  fill_in('Email', with: 'test@example.com')
-  fill_in('Password', with: 'testtest')
-  fill_in('Password confirmation', with: 'testtest')
-  click_button('Sign up')
-end
+  def sign_up_user
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test@example.com')
+    fill_in('Password', with: 'testtest')
+    fill_in('Password confirmation', with: 'testtest')
+    click_button('Sign up')
+  end
 
-def sign_up_user2
-  visit('/')
-  click_link('Sign up')
-  fill_in('Email', with: 'test2@example.com')
-  fill_in('Password', with: 'testtest2')
-  fill_in('Password confirmation', with: 'testtest2')
-  click_button('Sign up')
-end
+  def sign_up_user2
+    visit('/')
+    click_link('Sign up')
+    fill_in('Email', with: 'test2@example.com')
+    fill_in('Password', with: 'testtest2')
+    fill_in('Password confirmation', with: 'testtest2')
+    click_button('Sign up')
+  end
 
-def sign_out
-  visit('/')
-  click_link 'Sign out'
-end
+  def sign_out
+    visit('/')
+    click_link 'Sign out'
+  end
 
-def leave_review(thoughts, rating)
-  visit '/restaurants'
-  click_link 'Review KFC'
-  fill_in 'Thoughts', with: thoughts
-  select rating, from: 'Rating'
-  click_button 'Leave Review'
-end
+  def leave_review(thoughts, rating)
+    visit '/restaurants'
+    click_link 'Review KFC'
+    fill_in 'Thoughts', with: thoughts
+    select rating, from: 'Rating'
+    click_button 'Leave Review'
+  end
 
 end

@@ -31,6 +31,8 @@ feature 'Review Features' do
     expect(page).to have_content('★★★★☆')
   end
 
+  xit 'users can only endorse once'
+
   private
 
   def leave_2_reviews
