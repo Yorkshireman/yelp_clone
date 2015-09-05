@@ -3,54 +3,48 @@
   <% if @restaurants.any? %>
     
     <% @restaurants.each do |restaurant| %>
-      <div class='row'>
-        <div class='col-xs-2'>
-          <%= image_tag restaurant.image.url(:thumb) %>
-        </div>
-        <div class='col-xs-10'>
-          <%= link_to restaurant.name, restaurant_path(restaurant) %><br>
-          <% if restaurant.reviews.any? %>
-            <p class='stars'><%= star_rating(restaurant.average_rating) %></p>
-          <% else %>
-            <p class='small'>(no ratings yet)</p>
-          <% end %>
-        </div>
-      </div>
-      <h4>
-        <% if current_user == restaurant.user %>
-          <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
-          <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
-        <% end %>
+      <section class='panel panel-default'>
+        <div class='row panel-body'>
+          <div class='col-xs-2'>
+            <%= image_tag restaurant.image.url(:thumb) %>
+          </div>
+          <div class='col-xs-10'>
+            <%= link_to restaurant.name, restaurant_path(restaurant), class: 'restaurant-title' %><br>
+            <% if restaurant.reviews.any? %>
+              <p class='stars'><%= star_rating(restaurant.average_rating) %></p>
+            <% else %>
+              <p class='small'>(no ratings yet)</p>
+            <% end %>
 
-        <% unless already_reviewed_by_user?(restaurant) %>
-          <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant) %>
-        <% end %>
-      </h4>
-
-      <h4>Reviews for <%= restaurant.name %>:</h4>
-      <% if restaurant.reviews.any? %> 
-
-        <ul>
-          <% restaurant.reviews.each do |review| %>
-            <li>
-              <%= review.thoughts %> <%= review.rating %>
-              <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
-              <span class='endorsements_count'> 
+            <% if restaurant.reviews.any? %> 
+              <% restaurant.reviews.each do |review| %>    
+                <%= review.thoughts %> <%= review.rating %>
+                <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link' %>
+                <span class='endorsements_count'> 
+                  <% if review.endorsements.any? %>
+                   <%= review.endorsements.count %>
+                  <% end %>
+                </span> 
                 <% if review.endorsements.any? %>
-                 <%= review.endorsements.count %>
+                  <%= 'endorsement'.pluralize(review.endorsements.count) %>
                 <% end %>
-              </span> 
-              <% if review.endorsements.any? %>
-                <%= 'endorsement'.pluralize(review.endorsements.count) %>
               <% end %>
-            </li>
-          <% end %>
-        </ul>
-        
-      <% else %>
-        <p>No reviews yet</p>
-      <% end %>
+            <% else %>
+              <p class='small'>(No reviews yet)</p>
+            <% end %>
+            <section class='links'>
+              <% unless already_reviewed_by_user?(restaurant) %>
+                <%= link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant), class: 'btn btn-primary btn-sm' %><br>
+              <% end %>
 
+              <% if current_user == restaurant.user %>
+                <%= link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant) %>
+                <%= link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete %>
+              <% end %>
+            </section>
+          </div>
+        </section>
+      </div>
     <% end %>
 
   <% else %>
@@ -58,4 +52,4 @@
   <% end %>
 </section>
 
-<%= link_to 'Add a restaurant', new_restaurant_path %>
+<%= link_to 'Add a restaurant', new_restaurant_path, class: 'btn btn-primary' %>

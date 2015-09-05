@@ -9,8 +9,23 @@
 main {
   background-color: white;
   max-width: 975px;
+  padding-bottom: 15px;
+  margin-bottom: 10em;
+}
+
+.col-xs-10 {
+  .restaurant-title {
+    font-weight: bold;
+  }
+  section a {
+    font-size: 0.8em;
+  }
 }
 
 .stars {
   color: #F37539;
+}
+
+.links {
+  margin-top: 1em;
 }
