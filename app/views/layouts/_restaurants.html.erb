@@ -12,21 +12,24 @@
           <p class='small'>(no ratings yet)</p>
         <% end %>
 
-        <% if restaurant.reviews.any? %> 
-          <% restaurant.reviews.each do |review| %>    
-            <%= review.thoughts %><br>
-            <section class='endorsements-wrapper'>
-              <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link btn btn-default btn-xs' %>
-              <span class='endorsements_count'> 
-                <% if review.endorsements.any? %>
-                 <%= review.endorsements.count %>
-                <% end %>
-              </span> 
-              <% if review.endorsements.any? %>
-                <%= 'endorsement'.pluralize(review.endorsements.count) %>
-              <% end %>
-            </section>
-          <% end %>
+        <% if restaurant.reviews.any? %>
+          <ul class='list-group'>
+            <% restaurant.reviews.each do |review| %>    
+              <li class='list-group-item'>
+                <%= review.thoughts %>
+                <section class='endorsements-wrapper'>
+                  <%= link_to "Endorse", review_endorsements_path(review), class: 'endorsements-link btn btn-default btn-xs' %>
+                  <span class='endorsements_count'> 
+                    <% if review.endorsements.any? %>
+                     <%= review.endorsements.count %>
+                    <% end %>
+                  </span> 
+                  <% if review.endorsements.any? %>
+                    <%= 'endorsement'.pluralize(review.endorsements.count) %>
+                  <% end %>
+                </section>
+              </li>
+            <% end %>
         <% else %>
           <p class='small'>(No reviews yet)</p>
         <% end %>
