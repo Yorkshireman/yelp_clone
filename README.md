@@ -1,4 +1,4 @@
-A Yelp clone built on Rails.
+A [Yelp](http://yelp.com) clone built on Rails.
 
 TDD; RSpec, Capybara.
 
@@ -11,15 +11,15 @@ CSS is Bootstrap with some tweaks.
 - Review Restaurants and leave Star ratings;
 - Endorse Reviews.
 
-Deployed to Heroku [here](https://desolate-peak-3419.herokuapp.com/)
+Deployed to Heroku [here](https://desolate-peak-3419.herokuapp.com/).
 
 To run locally:
 
-`git clone git@github.com:Yorkshireman/yelp_clone.git`
-`bundle`
-`rake db:create`
-`rake db:migrate`
-`rails s`
+`git clone git@github.com:Yorkshireman/yelp_clone.git`  
+`bundle`  
+`rake db:create`  
+`rake db:migrate`  
+`rails s`  
 (navigate to localhost:3000 in your browser).
 
 `rspec` to run the tests.
