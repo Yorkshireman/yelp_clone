@@ -1,5 +1,0 @@
-A Yelp clone built on Rails.
-
-TDD; RSpec, Capybara.
-
-Javascript/JQuery.
