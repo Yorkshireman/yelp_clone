@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Yorkshireman/yelp_clone.svg?branch=master)](https://travis-ci.org/Yorkshireman/yelp_clone)
+[![Coverage Status](https://coveralls.io/repos/Yorkshireman/yelp_clone/badge.svg?branch=master&service=github)](https://coveralls.io/github/Yorkshireman/yelp_clone?branch=master)
 
 A [Yelp](http://yelp.com) clone built on Rails.
 
