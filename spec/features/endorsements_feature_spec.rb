@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'endorsing reviews' do
-  before do
+  before :each do
     sign_up_user
     click_link 'Add a restaurant'
     fill_in 'Name', with: "KFC"
@@ -12,24 +12,27 @@ feature 'endorsing reviews' do
   scenario 'a user can endorse a review, which increments the review endorsement count', js: true do
     sign_out
     sign_up_user2
-    visit '/restaurants'
+    visit restaurants_path
     click_link 'Endorse'
-    # Fails because, at the moment, when a review has no endorsements and you click 'Endorse', only the number appears, not the word (until you do a page refresh). Pluralization doesn't happen til page refresh either. One way around this could be to render a partial for the whole line i.e. "2 endoresements"
+    # at the moment, when a review has no endorsements and you click 'Endorse', only the number 
+    # appears, not the word (until you do a page refresh). Pluralization doesn't happen til page refresh either. 
+    # One way around this could be to render a partial for the whole line i.e. "2 endoresements", or
+    # write some conditional logic. However, not a problem once the endorsements count is above 1!
+    expect(page).to have_content('1')
+    visit restaurants_path
     expect(page).to have_content('1 endorsement')
   end
 
   context 'when a user has endorsed a review' do
-    before do
+    before :each do
       sign_out
       sign_up_user2
-      @restaurant = Restaurant.last
-      @review = @restaurant.reviews.last
-      @review.endorsements.create
+      review = Restaurant.last.reviews.last
+      review.endorsements.create
     end
 
     scenario 'endorsement is displayed on restaurants page' do
-      visit '/restaurants'
-      # This probably only works because you get a full page refresh (see above)
+      visit restaurants_path
       expect(page).to have_content "1 endorsement"
     end
   end
