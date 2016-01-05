@@ -6,12 +6,12 @@ A [Yelp](http://yelp.com) clone built on Rails. I am still adding the finishing 
 ####Features:  
 
 - User has choice of using a standard user sign-up/sign-in or Facebook authentication;
-- Create Restaurants and upload an image for it (Amazon S3 and Paperclip);
+- Create Restaurants and upload an image for it;  
 - Review Restaurants and leave Star ratings;
 - Endorse Reviews.  
 
 ####Technologies:  
-Ruby on Rails, Javascript, JQuery, RSpec & Capybara.  
+Ruby on Rails, Javascript, JQuery, RSpec & Capybara, Amazon S3, Paperclip.   
 
 Deployed to Heroku [here](https://desolate-peak-3419.herokuapp.com/).
 
